@@ -11,7 +11,7 @@ This project contains:
 			<li>Priority Queue</li>
 					<ul>
 						<li>Binary Heap</li>
-						<li>Binary Heap indexed by AVL tree</li>
+						<li>Binary Heap indexed by AVL heaps.tree</li>
 					</ul>
 			<li>Radix Heap</li>
 			<li>Min-Max Heap</li>

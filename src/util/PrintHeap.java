@@ -2,12 +2,12 @@ package util;
 
 import java.util.ArrayList;
 
-import graphics.SurfaceTree;
-import graphics.SurfaceTreeForRadixHeap;
+import util.graphics.SurfaceTreeForHeaps;
+import util.graphics.SurfaceTreeForRadixHeap;
 
 import javax.swing.SwingUtilities;
 
-import element.Pair;
+import heaps.element.Pair;
 
 public class PrintHeap {
 	public static void printPairs(Pair[] set) {
@@ -65,7 +65,7 @@ public class PrintHeap {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				new SurfaceTree(title, nodes);
+				new SurfaceTreeForHeaps(title, nodes);
 			}
 		});
 	}

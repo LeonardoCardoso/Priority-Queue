@@ -2,11 +2,11 @@ package heaps;
 
 import java.util.ArrayList;
 
-import element.Pair;
+import heaps.element.Pair;
 
 public class MinMaxHeap {
 
-	/** Inheap element x into priority queue */
+	/** Inheap heaps.element x into priority queue */
 	public void inHeap(ArrayList<Pair> priorityQueue, Pair x) {
 
 		/** Add the pair x into priority queue */
@@ -17,7 +17,7 @@ public class MinMaxHeap {
 	}
 
 	/**
-	 * Outheap the highest element with the minimum priority of priority queue,
+	 * Outheap the highest heaps.element with the minimum priority of priority queue,
 	 * then put its grandchild with the largest priority in its place and the
 	 * bottom in the grandchilds place
 	 */
@@ -57,7 +57,7 @@ public class MinMaxHeap {
 
 	}
 
-	/** Outheap the highest element with the maximum priority of priority queue */
+	/** Outheap the highest heaps.element with the maximum priority of priority queue */
 	public void outHeapMax(ArrayList<Pair> priorityQueue) {
 
 		if (size(priorityQueue) > 7) {
@@ -109,7 +109,7 @@ public class MinMaxHeap {
 
 	}
 
-	/** Reorganize the queue priority of element x, from down up */
+	/** Reorganize the queue priority of heaps.element x, from down up */
 	public void swapHeapDownUp(ArrayList<Pair> priorityQueue, Pair x) {
 		swapHeapDownUp(priorityQueue, x, priorityQueue.size());
 	}
@@ -123,7 +123,7 @@ public class MinMaxHeap {
 		int level = levels(xPosition);
 
 		/**
-		 * Compare priority element to its parents priority and swap if
+		 * Compare priority heaps.element to its parents priority and swap if
 		 * necessary if xParentPosition = 0, it reached the root
 		 * 
 		 * Even levels keep the min priorities
@@ -167,17 +167,17 @@ public class MinMaxHeap {
 	}
 
 	/**
-	 * Increase in delta the priority of element x. Px = Px + delta. Update the
+	 * Increase in delta the priority of heaps.element x. Px = Px + delta. Update the
 	 * priority queue.
 	 */
 	public void upgrade(ArrayList<Pair> priorityQueue, int delta, Pair x) {
 
 		int i = 0;
 
-		/** Search the element to change its priority */
+		/** Search the heaps.element to change its priority */
 		for (i = 0; i < priorityQueue.size(); i++) {
 
-			/** Found the element, its priority will be changed */
+			/** Found the heaps.element, its priority will be changed */
 			if (priorityQueue.get(i).p == x.p && priorityQueue.get(i).i == x.i) {
 				priorityQueue.get(i).p = priorityQueue.get(i).p + delta;
 
@@ -194,17 +194,17 @@ public class MinMaxHeap {
 	}
 
 	/**
-	 * Decrease in delta the priority of element x. Px = Px - delta. Update the
+	 * Decrease in delta the priority of heaps.element x. Px = Px - delta. Update the
 	 * priority queue.
 	 */
 	public void dowgrade(ArrayList<Pair> priorityQueue, int delta, Pair x) {
 
 		int i = 0;
 
-		/** Search the element to change its priority */
+		/** Search the heaps.element to change its priority */
 		for (i = 0; i < priorityQueue.size(); i++) {
 
-			/** Found the element, its priority will be changed */
+			/** Found the heaps.element, its priority will be changed */
 			if (priorityQueue.get(i).p == x.p && priorityQueue.get(i).i == x.i) {
 				priorityQueue.get(i).p = priorityQueue.get(i).p - delta;
 
@@ -221,14 +221,14 @@ public class MinMaxHeap {
 	}
 
 	/**
-	 * Return the highest element with the minimum priority of priority queue
+	 * Return the highest heaps.element with the minimum priority of priority queue
 	 */
 	public Pair topMin(ArrayList<Pair> priorityQueue) {
 		return priorityQueue.get(0);
 	}
 
 	/**
-	 * Return the highest element with the maximum priority of priority queue
+	 * Return the highest heaps.element with the maximum priority of priority queue
 	 */
 	public Pair topMax(ArrayList<Pair> priorityQueue) {
 		Pair x = priorityQueue.get(0);
@@ -258,13 +258,13 @@ public class MinMaxHeap {
 	}
 
 	/**
-	 * Return the element in the bottom
+	 * Return the heaps.element in the bottom
 	 */
 	public Pair bottom(ArrayList<Pair> priorityQueue) {
 		return priorityQueue.get(priorityQueue.size() - 1);
 	}
 
-	/** Reorganize children of an element */
+	/** Reorganize children of an heaps.element */
 	private void findChildren(ArrayList<Pair> priorityQueue,
 			int elementPosition, boolean greaterThan) {
 		int childIndex = elementPosition;

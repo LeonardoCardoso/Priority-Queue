@@ -1,8 +1,8 @@
-package tree;
+package heaps.tree.algorithm;
 
 import java.util.ArrayList;
 
-import tree.node.TreeNode;
+import heaps.tree.node.TreeNode;
 import util.AVLTreePrinter;
 
 @SuppressWarnings("unused")
@@ -90,7 +90,7 @@ public class AVLTree {
 
 	/**
 	 * Check the balance for each node recursively and call required methods for
-	 * balancing the tree until the root is reached.
+	 * balancing the heaps.tree until the root is reached.
 	 */
 	protected void recursiveBalance(TreeNode currentNode) {
 
@@ -119,7 +119,7 @@ public class AVLTree {
 	}
 
 	/**
-	 * Removes a node from the tree
+	 * Removes a node from the heaps.tree
 	 * 
 	 * @hash is just to print index in table hash
 	 */
@@ -144,7 +144,7 @@ public class AVLTree {
 			} else if (startingNode.key == searchingKey) {
 				removeFoundNode(startingNode);
 				System.out.println("\nKey " + searchingKey + " with Value " + startingNode.value
-						+ " removed successfully in position " + hash + " at tree height " + currentSearchHeight + ".");
+						+ " removed successfully in position " + hash + " at heaps.tree height " + currentSearchHeight + ".");
 			}
 		}
 	}
@@ -268,7 +268,7 @@ public class AVLTree {
 	/** Helper Functions */
 
 	/**
-	 * Returns the successor of a given node in the tree (search recursively).
+	 * Returns the successor of a given node in the heaps.tree (search recursively).
 	 */
 	private TreeNode successor(TreeNode predecessorNode) {
 		TreeNode successorNode = null;
@@ -366,7 +366,7 @@ public class AVLTree {
 	}
 
 	/**
-	 * Calculates the Inorder traversal of this tree.
+	 * Calculates the Inorder traversal of this heaps.tree.
 	 */
 	public ArrayList<TreeNode> inOrder() {
 		ArrayList<TreeNode> ret = new ArrayList<TreeNode>();

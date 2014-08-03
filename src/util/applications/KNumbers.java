@@ -1,8 +1,8 @@
-package applications;
+package util.applications;
 
 import java.util.ArrayList;
 
-import element.Pair;
+import heaps.element.Pair;
 import heaps.BinaryHeap;
 
 /** The Smallest/largest k numbers (consider priorities) of a priority queue */
@@ -23,7 +23,7 @@ public class KNumbers {
 
 		if (type == SMALLEST) {
 			/**
-			 * If the next element is smaller than the priority queue top,
+			 * If the next heaps.element is smaller than the priority queue top,
 			 * inheap it
 			 */
 			for (i = k; i < set.length; i++) {
@@ -35,7 +35,7 @@ public class KNumbers {
 			}
 		} else {
 			/**
-			 * If the next element is smaller than the priority queue top,
+			 * If the next heaps.element is smaller than the priority queue top,
 			 * inheap it
 			 */
 			for (i = k; i < set.length; i++) {

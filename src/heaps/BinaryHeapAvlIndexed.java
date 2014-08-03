@@ -2,14 +2,14 @@ package heaps;
 
 import java.util.ArrayList;
 
-import element.Pair;
-import tree.AVLTree;
-import tree.node.TreeNode;
+import heaps.element.Pair;
+import heaps.tree.algorithm.AVLTree;
+import heaps.tree.node.TreeNode;
 
 /** Binary Heap */
 /** Bigger priority is on the top as default */
 /**
- * As upgrade is a very expensive function O (n), then an AVL tree is used to
+ * As upgrade is a very expensive function O (n), then an AVL heaps.tree is used to
  * map the indexes and their positions and the search is reduced from O (n) to O
  * (log n). Consider that there are no repeated indexes.
  */
@@ -33,7 +33,7 @@ public class BinaryHeapAvlIndexed {
 		avlTree = new AVLTree();
 	}
 
-	/** Inheap element x into priority queue */
+	/** Inheap heaps.element x into priority queue */
 	public void inHeap(ArrayList<Pair> priorityQueue, Pair x) {
 
 		/** Add the pair x into priority queue */
@@ -43,13 +43,13 @@ public class BinaryHeapAvlIndexed {
 		swapHeapDownUp(priorityQueue, x);
 	}
 
-	/** Outheap element in the top of priority queue */
+	/** Outheap heaps.element in the top of priority queue */
 	public void outHeap(ArrayList<Pair> priorityQueue) {
 
 		Pair bottom = bottom(priorityQueue);
 
 		/**
-		 * Remove the element in the top and insert the element in the bottom
+		 * Remove the heaps.element in the top and insert the heaps.element in the bottom
 		 * into the top
 		 */
 		priorityQueue.set(0, bottom);
@@ -62,7 +62,7 @@ public class BinaryHeapAvlIndexed {
 		}
 	}
 
-	/** Reorganize the queue priority of element x, from up down */
+	/** Reorganize the queue priority of heaps.element x, from up down */
 	public void swapHeapUpDown(ArrayList<Pair> priorityQueue, Pair x) {
 		swapHeapDownUp(priorityQueue, x, 0);
 	}
@@ -74,7 +74,7 @@ public class BinaryHeapAvlIndexed {
 		int currentRightPositon = 2 * currentPosition + 2;
 
 		/**
-		 * Compare priority element to its parents priority and swap if
+		 * Compare priority heaps.element to its parents priority and swap if
 		 * necessary if xParentPosition = 0, it has reached the root.
 		 */
 
@@ -131,7 +131,7 @@ public class BinaryHeapAvlIndexed {
 
 	}
 
-	/** Reorganize the queue priority of element x, from down up */
+	/** Reorganize the queue priority of heaps.element x, from down up */
 	public void swapHeapDownUp(ArrayList<Pair> priorityQueue, Pair x) {
 		swapHeapDownUp(priorityQueue, x, priorityQueue.size());
 	}
@@ -142,7 +142,7 @@ public class BinaryHeapAvlIndexed {
 		int xParentPosition = xPosition / 2;
 
 		/**
-		 * Compare priority element to its parents priority and swap if
+		 * Compare priority heaps.element to its parents priority and swap if
 		 * necessary if xParentPosition = 0, it reached the root
 		 */
 		while (xParentPosition != 0
@@ -167,12 +167,12 @@ public class BinaryHeapAvlIndexed {
 	}
 
 	/**
-	 * Increase in delta the priority of element x. Px = Px + delta. Update the
+	 * Increase in delta the priority of heaps.element x. Px = Px + delta. Update the
 	 * priority queue.
 	 */
 	public void upgrade(ArrayList<Pair> priorityQueue, int delta, Pair x) {
 
-		/** Found the element, its priority will be changed */
+		/** Found the heaps.element, its priority will be changed */
 		TreeNode mapped = getAvlTree().find(x.i);
 
 		if (mapped != null) {
@@ -184,7 +184,7 @@ public class BinaryHeapAvlIndexed {
 			/** Then, reorganize the priority queue over x */
 			swapHeapDownUp(priorityQueue, priorityQueue.get(pos), pos + 1);
 
-			/** Update position in the AVL tree */
+			/** Update position in the AVL heaps.tree */
 			for (int i = 0; i < priorityQueue.size(); i++)
 				getAvlTree().find(priorityQueue.get(i).i).setValue(i + 1);
 		} else {
@@ -194,12 +194,12 @@ public class BinaryHeapAvlIndexed {
 	}
 
 	/**
-	 * Decrease in delta the priority of element x. Px = Px - delta. Update the
+	 * Decrease in delta the priority of heaps.element x. Px = Px - delta. Update the
 	 * priority queue.
 	 */
 	public void dowgrade(ArrayList<Pair> priorityQueue, int delta, Pair x) {
 
-		/** Found the element, its priority will be changed */
+		/** Found the heaps.element, its priority will be changed */
 		TreeNode mapped = getAvlTree().find(x.i);
 
 		if (mapped != null) {
@@ -210,7 +210,7 @@ public class BinaryHeapAvlIndexed {
 			/** Then, reorganize the priority queue over x */
 			swapHeapUpDown(priorityQueue, priorityQueue.get(pos), pos);
 
-			/** Update position in the AVL tree */
+			/** Update position in the AVL heaps.tree */
 			for (int i = 0; i < priorityQueue.size(); i++)
 				getAvlTree().find(priorityQueue.get(i).i).setValue(i + 1);
 		} else {
@@ -220,20 +220,20 @@ public class BinaryHeapAvlIndexed {
 	}
 
 	/**
-	 * Return the element in the top
+	 * Return the heaps.element in the top
 	 */
 	public Pair top(ArrayList<Pair> priorityQueue) {
 		return priorityQueue.get(0);
 	}
 
 	/**
-	 * Return the element in the bottom
+	 * Return the heaps.element in the bottom
 	 */
 	public Pair bottom(ArrayList<Pair> priorityQueue) {
 		return priorityQueue.get(priorityQueue.size() - 1);
 	}
 
-	/** Map the element index at the AVL tree */
+	/** Map the heaps.element index at the AVL heaps.tree */
 	public void map(ArrayList<Pair> priorityQueue) {
 		for (int i = 0; i < priorityQueue.size(); i++)
 			avlTree.insert(priorityQueue.get(i).i, i + 1);

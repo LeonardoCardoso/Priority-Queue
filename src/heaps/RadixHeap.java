@@ -2,7 +2,7 @@ package heaps;
 
 import java.util.ArrayList;
 
-import element.Pair;
+import heaps.element.Pair;
 
 /**
  * Radix Heap is the process to organize a PQ reducing its medium complexity of

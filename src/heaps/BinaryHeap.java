@@ -2,7 +2,7 @@ package heaps;
 
 import java.util.ArrayList;
 
-import element.Pair;
+import heaps.element.Pair;
 
 /** Binary Heap */
 /** Bigger priority is on the top as default */
@@ -22,7 +22,7 @@ public class BinaryHeap {
 		priorityType = type;
 	}
 
-	/** Inheap element x into priority queue */
+	/** Inheap heaps.element x into priority queue */
 	public void inHeap(ArrayList<Pair> priorityQueue, Pair x) {
 
 		/** Add the pair x into priority queue */
@@ -32,13 +32,13 @@ public class BinaryHeap {
 		swapHeapDownUp(priorityQueue, x);
 	}
 
-	/** Outheap element in the top of priority queue */
+	/** Outheap heaps.element in the top of priority queue */
 	public void outHeap(ArrayList<Pair> priorityQueue) {
 
 		Pair bottom = bottom(priorityQueue);
 
 		/**
-		 * Remove the element in the top and insert the element in the bottom
+		 * Remove the heaps.element in the top and insert the heaps.element in the bottom
 		 * into the top
 		 */
 		priorityQueue.set(0, bottom);
@@ -51,7 +51,7 @@ public class BinaryHeap {
 		}
 	}
 
-	/** Reorganize the queue priority of element x, from up down */
+	/** Reorganize the queue priority of heaps.element x, from up down */
 	public void swapHeapUpDown(ArrayList<Pair> priorityQueue, Pair x) {
 
 		int currentPosition = 0;
@@ -59,7 +59,7 @@ public class BinaryHeap {
 		int currentRightPositon = 2 * currentPosition + 2;
 
 		/**
-		 * Compare priority element to its parents priority and swap if
+		 * Compare priority heaps.element to its parents priority and swap if
 		 * necessary if xParentPosition = 0, it has reached the root.
 		 */
 
@@ -129,7 +129,7 @@ public class BinaryHeap {
 
 	}
 
-	/** Reorganize the queue priority of element x, from down up */
+	/** Reorganize the queue priority of heaps.element x, from down up */
 	public void swapHeapDownUp(ArrayList<Pair> priorityQueue, Pair x) {
 		swapHeapDownUp(priorityQueue, x, priorityQueue.size());
 	}
@@ -141,7 +141,7 @@ public class BinaryHeap {
 		int xParentPosition = xPosition / 2;
 
 		/**
-		 * Compare priority element to its parents priority and swap if
+		 * Compare priority heaps.element to its parents priority and swap if
 		 * necessary if xParentPosition = 0, it reached the root
 		 */
 		while (xParentPosition != 0
@@ -171,17 +171,17 @@ public class BinaryHeap {
 	}
 
 	/**
-	 * Increase in delta the priority of element x. Px = Px + delta. Update the
+	 * Increase in delta the priority of heaps.element x. Px = Px + delta. Update the
 	 * priority queue.
 	 */
 	public void upgrade(ArrayList<Pair> priorityQueue, int delta, Pair x) {
 
 		int i = 0;
 
-		/** Search the element to change its priority */
+		/** Search the heaps.element to change its priority */
 		for (i = 0; i < priorityQueue.size(); i++) {
 
-			/** Found the element, its priority will be changed */
+			/** Found the heaps.element, its priority will be changed */
 			if (priorityQueue.get(i).p == x.p && priorityQueue.get(i).i == x.i) {
 				priorityQueue.get(i).p = priorityQueue.get(i).p + delta;
 
@@ -198,15 +198,15 @@ public class BinaryHeap {
 	}
 
 	/**
-	 * Decrease in delta the priority of element x. Px = Px - delta. Update the
+	 * Decrease in delta the priority of heaps.element x. Px = Px - delta. Update the
 	 * priority queue.
 	 */
 	public void dowgrade(ArrayList<Pair> priorityQueue, int delta, Pair x) {
 
-		/** Search the element to change its priority */
+		/** Search the heaps.element to change its priority */
 		for (int i = 0; i < priorityQueue.size(); i++) {
 
-			/** Found the element, its priority will be changed */
+			/** Found the heaps.element, its priority will be changed */
 			if (priorityQueue.get(i).p == x.p && priorityQueue.get(i).i == x.i) {
 				priorityQueue.get(i).p = priorityQueue.get(i).p - delta;
 
@@ -223,14 +223,14 @@ public class BinaryHeap {
 	}
 
 	/**
-	 * Return the element in the top
+	 * Return the heaps.element in the top
 	 */
 	public Pair top(ArrayList<Pair> priorityQueue) {
 		return priorityQueue.get(0);
 	}
 
 	/**
-	 * Return the element in the bottom
+	 * Return the heaps.element in the bottom
 	 */
 	public Pair bottom(ArrayList<Pair> priorityQueue) {
 		return priorityQueue.get(priorityQueue.size() - 1);

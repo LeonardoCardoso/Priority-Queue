@@ -1,6 +1,6 @@
-package graphics;
+package util.graphics;
 
-import element.Pair;
+import heaps.element.Pair;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -10,7 +10,7 @@ import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-public class SurfaceTree extends JPanel {
+public class SurfaceTreeForHeaps extends JPanel {
 
     private static final long serialVersionUID = -9054075219988539709L;
     private Pair[] nodes;
@@ -24,7 +24,7 @@ public class SurfaceTree extends JPanel {
     Point linkEnd = null;
     Node linkTarget = null;
 
-    public SurfaceTree(String title, Pair[] nodes) {
+    public SurfaceTreeForHeaps(String title, Pair[] nodes) {
         setDimensions();
         this.title = title;
         this.nodes = nodes;

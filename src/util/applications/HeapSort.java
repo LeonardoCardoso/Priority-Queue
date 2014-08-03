@@ -1,9 +1,9 @@
-package applications;
+package util.applications;
 
 
 import java.util.ArrayList;
 
-import element.Pair;
+import heaps.element.Pair;
 import heaps.BinaryHeap;
 
 

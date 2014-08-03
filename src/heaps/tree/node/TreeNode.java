@@ -1,4 +1,4 @@
-package tree.node;
+package heaps.tree.node;
 
 public class TreeNode {
 	public int value;

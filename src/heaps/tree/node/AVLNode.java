@@ -1,6 +1,6 @@
-package tree.node;
+package heaps.tree.node;
 
-import tree.AVLTree;
+import heaps.tree.algorithm.AVLTree;
 
 public class AVLNode {
 	private int key;
