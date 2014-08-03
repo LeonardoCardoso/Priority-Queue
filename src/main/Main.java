@@ -17,12 +17,12 @@ public class Main {
 			new Pair(9, 2), new Pair(21, 7), new Pair(31, 9), new Pair(3, 3) };
 
 	public static void main(String[] args) {
-		callPriorityQueue(SET);
-		// callMinMaxHeap(SET);
-		// callAvlIndex(SET);
-		// callHeapSort(SET);
-		// callKNumbers(SET);
-		// callRadixHeap(SET);
+//		callPriorityQueue(SET);
+//		callMinMaxHeap(SET);
+//		callAvlIndex(SET);
+//		callHeapSort(SET);
+//		callKNumbers(SET);
+//		callRadixHeap(SET);
 	}
 
 	public static void callPriorityQueue(Pair[] set) {

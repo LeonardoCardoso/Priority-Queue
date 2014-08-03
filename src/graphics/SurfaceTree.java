@@ -1,289 +1,310 @@
 package graphics;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.Toolkit;
+import element.Pair;
+
+import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
+import javax.swing.event.MouseInputListener;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.event.MouseInputAdapter;
-import javax.swing.event.MouseInputListener;
-
-import element.Pair;
-
 public class SurfaceTree extends JPanel {
 
-	private static final long serialVersionUID = -9054075219988539709L;
-	private Pair[] nodes;
-	private String title = "";
-	private int screenWidth, screenHeight;
+    private static final long serialVersionUID = -9054075219988539709L;
+    private Pair[] nodes;
+    private String title = "";
+    private int screenWidth, screenHeight;
 
-	public static final int DIMENSION_TOP = 66, DIMENSION_LEFT = 35, DIMENSION_WIDTH = 100, DIMENSION_HEIGHT = 60;
+    public static final int DIMENSION_TOP = 66, DIMENSION_LEFT = 35, DIMENSION_WIDTH = 100, DIMENSION_HEIGHT = 60;
 
-	Node selection = null;
+    Node selection = null;
 
-	Point linkEnd = null;
-	Node linkTarget = null;
+    Point linkEnd = null;
+    Node linkTarget = null;
 
-	public SurfaceTree(String title, Pair[] nodes) {
-		setDimensions();
-		this.title = title;
-		this.nodes = nodes;
+    public SurfaceTree(String title, Pair[] nodes) {
+        setDimensions();
+        this.title = title;
+        this.nodes = nodes;
 
-		setDimensions();
-		setLayout(null);
+        setDimensions();
+        setLayout(null);
 
-		addMouseListener(mouseListener);
-		addMouseMotionListener(mouseListener);
+        addMouseListener(mouseListener);
+        addMouseMotionListener(mouseListener);
 
-		setPreferredSize(new Dimension(screenWidth, screenHeight));
+        setPreferredSize(new Dimension(screenWidth, screenHeight));
 
-		setSelection(null);
+        setSelection(null);
 
-		buildData();
+        buildData();
 
-		JFrame frame = makeFrame();
-		frame.setVisible(true);
-	}
+        JFrame frame = makeFrame();
+        frame.setVisible(true);
+    }
 
-	private void setDimensions() {
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		screenWidth = (int) screenSize.getWidth() / 2;
-		screenHeight = (int) screenSize.getHeight() / 2;
-	}
+    private void setDimensions() {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        screenWidth = (int) screenSize.getWidth();
+        screenHeight = (int) screenSize.getHeight();
+    }
 
-	public JFrame makeFrame() {
+    public JFrame makeFrame() {
 
-		JFrame f = new JFrame(title);
+        JFrame f = new JFrame(title);
 
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		JScrollPane scroller = new JScrollPane(this);
-		scroller.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        setPreferredSize(new Dimension(screenWidth - DIMENSION_WIDTH, DIMENSION_WIDTH * nodes.length));
+        JScrollPane scrollFrame = new JScrollPane(this);
+        setAutoscrolls(true);
+        scrollFrame.setPreferredSize(new Dimension(screenWidth, screenHeight));
 
-		Container contentPane = f.getContentPane();
-		contentPane.setLayout(new BorderLayout());
-		contentPane.add(scroller, BorderLayout.CENTER);
-		f.pack();
+        Container contentPane = f.getContentPane();
+        contentPane.setLayout(new BorderLayout());
+        contentPane.add(scrollFrame, BorderLayout.CENTER);
+        f.pack();
 
-		return f;
-	}
+        return f;
+    }
 
-	private void buildData() {
-		printAll(nodes[0], 0, null, null, 0, 0);
-	}
+    private void buildData() {
+        printAll(nodes[0], 0, null, null, screenWidth / 2, 0, 0);
+    }
 
-	private void printAll(Pair root, int i, Pair parent, Node parentNode, int depthLeft, int depthRight) {
-		Node p = null, l = null, r = null;
+    private void printAll(Pair root, int i, Pair parent, Node parentNode, int parentPosition, int depthLeft, int depthRight) {
+        Node p = null;
 
-		if (root != null && parent == null) {
-			p = makeNode("&lt;" + root.p + "," + root.i + "&gt;", new Point(getRectNextLeft(i), getRectNextTop(depthRight)),
-					Node.COLOR_PARENT, i);
-		} else {
-			p = parentNode;
-		}
+        if (root != null && parent == null) {
+            p = makeNode("&lt;" + root.p + "," + root.i + "&gt;", new Point(parentPosition, getRectNextTop(depthRight)), Node.COLOR_PARENT, i);
+        } else {
+            p = parentNode;
+        }
 
-		int newLeftPosition = 2 * i + 1;
-		Pair left = null;
-		if (newLeftPosition < nodes.length) {
-			left = nodes[newLeftPosition];
-			if (p != null) {
-				depthLeft++;
-				l = makeNode("&lt;" + left.p + "," + left.i + "&gt;", new Point(getRectNextLeft(i), getRectNextTop(depthLeft)),
-						Node.COLOR_LEFT, i);
-				l.setParent(p);
-			}
-		}
+        recursivePrint(i, p, parentPosition, depthLeft, depthRight);
+    }
 
-		int newRightPosition = 2 * i + 2;
-		Pair right = null;
-		if (newRightPosition < nodes.length) {
-			right = nodes[newRightPosition];
-			if (p != null) {
-				depthRight++;
-				r = makeNode("&lt;" + right.p + "," + right.i + "&gt;",
-						new Point(getRectNextRight(i), getRectNextTop(depthRight)), Node.COLOR_RIGHT, i);
-				r.setParent(p);
-			}
-		}
+    private void recursivePrint(int i, Node parentNode, int parentPosition, int depthLeft, int depthRight) {
 
-		if (left != null) {
-			printAll(left, newLeftPosition, root, l, depthLeft, depthRight);
-		}
-		if (right != null) {
-			printAll(right, newRightPosition, root, r, depthLeft, depthRight);
-		}
-	}
+        int newLeftPosition = 2 * i + 1;
+        Pair left = null;
+        Node nodeLeft = null;
+        int parentLeftPosition = parentPosition;
+        if (newLeftPosition < nodes.length) {
+            left = nodes[newLeftPosition];
+            parentLeftPosition = getRectNextLeft(parentLeftPosition, heightFromLeft(i));
+            if (parentNode != null) {
+                depthLeft++;
+                nodeLeft = makeNode("&lt;" + left.p + "," + left.i + "&gt;", new Point(parentLeftPosition, getRectNextTop(depthLeft)), Node.COLOR_LEFT, newLeftPosition);
+                nodeLeft.setParent(parentNode);
+            }
+        }
 
-	public class Node extends JLabel {
+        int newRightPosition = 2 * i + 2;
+        Pair right = null;
+        Node nodeRight = null;
+        int parentRightPosition = parentPosition;
+        if (newRightPosition < nodes.length) {
+            right = nodes[newRightPosition];
+            parentRightPosition = getRectNextRight(parentRightPosition, heightFromRight(i));
+            if (parentNode != null) {
+                depthRight++;
+                nodeRight = makeNode("&lt;" + right.p + "," + right.i + "&gt;", new Point(parentRightPosition, getRectNextTop(depthRight)), Node.COLOR_RIGHT, newRightPosition);
+                nodeRight.setParent(parentNode);
+            }
+        }
 
-		private static final long serialVersionUID = -3405121483030773951L;
-		Node parent = null;
-		private Set<Node> children = new HashSet<Node>();
-		public static final String COLOR_LEFT = "red", COLOR_RIGHT = "blue", COLOR_PARENT = "black";
+        if (left != null) {
+            recursivePrint(newLeftPosition, nodeLeft, parentLeftPosition, depthLeft, depthRight);
+        }
+        if (right != null) {
+            recursivePrint(newRightPosition, nodeRight, parentRightPosition, depthLeft, depthRight);
+        }
+    }
 
-		public Node(String text, Point location, String color, int index) {
-			super("<html><div style='width: 35px; height: 35px; color: " + color
-					+ "; font-family: Arial; padding-top: 10px; text-align: center; background: white; "
-					+ "border: 1px solid black; margin: auto;'>" + text + "<div></html>");
-			setOpaque(true);
-			setLocation(location);
-			setSize(getPreferredSize());
-		}
 
-		public void setText(String text) {
-			super.setText(text);
-			setSize(getPreferredSize());
-		}
+    private int heightFromLeft(int i) {
+        int height = 1;
 
-		public void setParent(Node newParent) {
-			if (parent != null) {
-				parent.getChildren().remove(this);
-			}
-			this.parent = newParent;
-			if (newParent != null) {
-				newParent.getChildren().add(this);
-			}
-		}
+        while (i > 0 && nodes[i] != null) {
+            i = (i - 1) / 2;
+            height++;
+        }
 
-		public boolean hitsLinkHotspot(Point pt) {
-			Rectangle r = getBounds();
-			int x = pt.x - r.x;
-			int y = pt.y - r.y;
-			x -= (r.width / 2 - 4);
-			return (-2 < x && x < 10 && -2 < y && y < 10);
-		}
+        return height;
+    }
 
-		public void paintLink(Graphics g) {
-			Rectangle myRect = getBounds();
-			int x1 = myRect.x + myRect.width / 2;
-			int y1 = myRect.y + 4;
+    private int heightFromRight(int i) {
+        int height = 1;
 
-			int x2;
-			int y2;
-			if (parent != null) {
-				Rectangle parentRect = parent.getBounds();
-				x2 = parentRect.x + parentRect.width / 2;
-				y2 = parentRect.y + parentRect.height;
-			} else if (selection == this && linkEnd != null) {
-				x2 = linkEnd.x;
-				y2 = linkEnd.y;
-			} else {
-				return;
-			}
+        while (i > 0 && nodes[i] != null) {
+            i = (i - 2) / 2;
+            height++;
+        }
 
-			g.drawLine(x1, y1, x2, y2);
-		}
+        return height;
+    }
 
-		public Set<Node> getChildren() {
-			return children;
-		}
+    public class Node extends JLabel {
 
-		public void setChildren(Set<Node> children) {
-			this.children = children;
-		}
+        private static final long serialVersionUID = -3405121483030773951L;
+        Node parent = null;
+        private Set<Node> children = new HashSet<Node>();
+        public static final String COLOR_LEFT = "red", COLOR_RIGHT = "blue", COLOR_PARENT = "black";
 
-	} // end of Node class
+        public Node(String text, Point location, String color, int index) {
+            super("<html><div style='width: 35px; height: 35px; color: " + color
+                    + "; font-family: Arial; padding-top: 10px; text-align: center; background: white; "
+                    + "border: 1px solid black; margin: auto;'>" + text + "<div></html>");
+            setOpaque(true);
+            setLocation(location);
+            setSize(getPreferredSize());
+        }
 
-	// Resuming Tree methods.
+        public void setText(String text) {
+            super.setText(text);
+            setSize(getPreferredSize());
+        }
 
-	// paint links and nodes
-	public void paintChildren(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
+        public void setParent(Node newParent) {
+            if (parent != null) {
+                parent.getChildren().remove(this);
+            }
+            this.parent = newParent;
+            if (newParent != null) {
+                newParent.getChildren().add(this);
+            }
+        }
 
-		int n = getComponentCount();
-		for (int i = 0; i < n; ++i) {
-			Component c = getComponent(i);
-			if (c instanceof Node) {
-				((Node) c).paintLink(g2);
-			}
-		}
+        public boolean hitsLinkHotspot(Point pt) {
+            Rectangle r = getBounds();
+            int x = pt.x - r.x;
+            int y = pt.y - r.y;
+            x -= (r.width / 2 - 4);
+            return (-2 < x && x < 10 && -2 < y && y < 10);
+        }
 
-		super.paintChildren(g);
-	}
+        public void paintLink(Graphics g) {
+            Rectangle myRect = getBounds();
+            int x1 = myRect.x + myRect.width / 2;
+            int y1 = myRect.y + 4;
 
-	// make a new node
-	public Node makeNode(String text, Point pt, String color, int index) {
-		Node n = new Node(text, pt, color, index);
-		add(n);
-		return n;
-	}
+            int x2;
+            int y2;
+            if (parent != null) {
+                Rectangle parentRect = parent.getBounds();
+                x2 = parentRect.x + parentRect.width / 2;
+                y2 = parentRect.y + parentRect.height;
+            } else if (selection == this && linkEnd != null) {
+                x2 = linkEnd.x;
+                y2 = linkEnd.y;
+            } else {
+                return;
+            }
 
-	// Mouse listener
-	// for selecting nodes, moving nodes, and dragging out links
-	private MouseInputListener mouseListener = new MouseInputAdapter() {
-		boolean dragging = false;
-		int offsetX;
-		int offsetY;
+            g.drawLine(x1, y1, x2, y2);
+        }
 
-		public void mousePressed(MouseEvent e) {
-			Component c = getComponentAt(e.getPoint());
-			if (c instanceof Node) {
-				setSelection((Node) c);
-			} else {
-				setSelection(null);
-			}
-		}
+        public Set<Node> getChildren() {
+            return children;
+        }
 
-		public void mouseDragged(MouseEvent e) {
-			if (selection == null) {
-				return;
-			}
+        public void setChildren(Set<Node> children) {
+            this.children = children;
+        }
 
-			if (dragging) {
-				selection.setLocation(e.getX() + offsetX, e.getY() + offsetY);
-				repaint();
-			} else {
-				dragging = true;
-				offsetX = selection.getX() - e.getX();
-				offsetY = selection.getY() - e.getY();
-			}
-		}
+    } // end of Node class
 
-		public void mouseReleased(MouseEvent e) {
-			if (dragging) {
-				dragging = false;
-			} else if (linkEnd != null) {
-				if (linkTarget != null) {
-					selection.setParent(linkTarget);
-				}
-				linkEnd = null;
-				linkTarget = null;
-				repaint();
-			}
-		}
-	};
+    // Resuming Tree methods.
 
-	public void setSelection(Node n) {
+    // paint links and nodes
+    public void paintChildren(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g;
 
-		if (selection != null) {
-			selection.repaint();
-		}
+        int n = getComponentCount();
+        for (int i = 0; i < n; ++i) {
+            Component c = getComponent(i);
+            if (c instanceof Node) {
+                ((Node) c).paintLink(g2);
+            }
+        }
 
-		selection = n;
-	}
+        super.paintChildren(g);
+    }
 
-	private int getRectNextLeft(int i) {
-		return DIMENSION_LEFT + i * DIMENSION_WIDTH;
-	}
+    // make a new node
+    public Node makeNode(String text, Point pt, String color, int index) {
+        Node n = new Node(text, pt, color, index);
+        add(n);
+        return n;
+    }
 
-	private int getRectNextRight(int i) {
-		return getRectNextLeft(i) + 20;
-	}
+    // Mouse listener
+    // for selecting nodes, moving nodes, and dragging out links
+    private MouseInputListener mouseListener = new MouseInputAdapter() {
+        boolean dragging = false;
+        int offsetX;
+        int offsetY;
 
-	private int getRectNextTop(int i) {
-		return DIMENSION_TOP + i * DIMENSION_HEIGHT;
-	}
+        public void mousePressed(MouseEvent e) {
+            Component c = getComponentAt(e.getPoint());
+            if (c instanceof Node) {
+                setSelection((Node) c);
+            } else {
+                setSelection(null);
+            }
+        }
+
+        public void mouseDragged(MouseEvent e) {
+            if (selection == null) {
+                return;
+            }
+
+            if (dragging) {
+                selection.setLocation(e.getX() + offsetX, e.getY() + offsetY);
+                repaint();
+            } else {
+                dragging = true;
+                offsetX = selection.getX() - e.getX();
+                offsetY = selection.getY() - e.getY();
+            }
+        }
+
+        public void mouseReleased(MouseEvent e) {
+            if (dragging) {
+                dragging = false;
+            } else if (linkEnd != null) {
+                if (linkTarget != null) {
+                    selection.setParent(linkTarget);
+                }
+                linkEnd = null;
+                linkTarget = null;
+                repaint();
+            }
+        }
+    };
+
+    public void setSelection(Node n) {
+
+        if (selection != null) {
+            selection.repaint();
+        }
+
+        selection = n;
+    }
+
+    private int getRectNextLeft(int parentPosition, int division) {
+        return -DIMENSION_WIDTH / division + parentPosition;
+    }
+
+    private int getRectNextRight(int parentPosition, int division) {
+        return DIMENSION_WIDTH / division + parentPosition;
+    }
+
+    private int getRectNextTop(int i) {
+        return DIMENSION_TOP + i * DIMENSION_HEIGHT;
+    }
 
 }

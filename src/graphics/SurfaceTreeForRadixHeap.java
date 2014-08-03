@@ -14,10 +14,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import javax.swing.event.MouseInputListener;
 
@@ -65,22 +62,24 @@ public class SurfaceTreeForRadixHeap extends JPanel {
 		screenHeight = (int) screenSize.getHeight() / 2;
 	}
 
-	public JFrame makeFrame() {
+    public JFrame makeFrame() {
 
-		JFrame f = new JFrame(title);
+        JFrame f = new JFrame(title);
 
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-		JScrollPane scroller = new JScrollPane(this);
-		scroller.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        setPreferredSize(new Dimension(DIMENSION_WIDTH * 2 * nodes.length, screenHeight - DIMENSION_TOP * 2));
+        JScrollPane scrollFrame = new JScrollPane(this);
+        setAutoscrolls(true);
+        scrollFrame.setPreferredSize(new Dimension(screenWidth, screenHeight));
 
-		Container contentPane = f.getContentPane();
-		contentPane.setLayout(new BorderLayout());
-		contentPane.add(scroller, BorderLayout.CENTER);
-		f.pack();
+        Container contentPane = f.getContentPane();
+        contentPane.setLayout(new BorderLayout());
+        contentPane.add(scrollFrame, BorderLayout.CENTER);
+        f.pack();
 
-		return f;
-	}
+        return f;
+    }
 
 	private void buildData() {
 		for (int i = 0; i < nodesSet.length; i++) {
