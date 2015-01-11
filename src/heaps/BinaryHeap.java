@@ -182,7 +182,7 @@ public class BinaryHeap {
 		for (i = 0; i < priorityQueue.size(); i++) {
 
 			/** Found the heaps.element, its priority will be changed */
-			if (priorityQueue.get(i).p == x.p && priorityQueue.get(i).i == x.i) {
+			if (priorityQueue.get(i).p == x.p && priorityQueue.get(i).v == x.v) {
 				priorityQueue.get(i).p = priorityQueue.get(i).p + delta;
 
 				x = priorityQueue.get(i);
@@ -207,7 +207,7 @@ public class BinaryHeap {
 		for (int i = 0; i < priorityQueue.size(); i++) {
 
 			/** Found the heaps.element, its priority will be changed */
-			if (priorityQueue.get(i).p == x.p && priorityQueue.get(i).i == x.i) {
+			if (priorityQueue.get(i).p == x.p && priorityQueue.get(i).v == x.v) {
 				priorityQueue.get(i).p = priorityQueue.get(i).p - delta;
 
 				x = priorityQueue.get(i);

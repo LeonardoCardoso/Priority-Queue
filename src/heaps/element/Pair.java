@@ -5,17 +5,17 @@ public class Pair {
 	/** priority */
 	public int p;
 
-	/** index */
-	public int i;
+	/** value */
+	public int v;
 
-	public Pair(int priority, int index) {
+	public Pair(int priority, int value) {
 		this.p = priority;
-		this.i = index;
+		this.v = value;
 	}
 
 	@Override
 	public String toString() {
-		return "[p=" + p + ",i=" + i + "]";
+		return "[p=" + p + ",v=" + v + "]";
 	}
 
 }

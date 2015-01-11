@@ -161,7 +161,7 @@ public class SurfaceTreeForRadixHeap extends JPanel {
         Node p = null;
 
         if (root != null && parent == null) {
-            p = makeNode("&lt;" + root.p + "," + root.i + "&gt;", new Point(parentPosition, getRectNextTop(depthRight)), Node.COLOR_PARENT, arrayIndex);
+            p = makeNode("&lt;" + root.p + "," + root.v + "&gt;", new Point(parentPosition, getRectNextTop(depthRight)), Node.COLOR_PARENT, arrayIndex);
         } else {
             p = parentNode;
         }
@@ -185,7 +185,7 @@ public class SurfaceTreeForRadixHeap extends JPanel {
             parentLeftPosition = getRectNextLeft(parentLeftPosition, heightFromLeft(i));
             if (parentNode != null) {
                 depthLeft++;
-                nodeLeft = makeNode("&lt;" + left.p + "," + left.i + "&gt;", new Point(parentLeftPosition, getRectNextTop(depthLeft)), Node.COLOR_LEFT, newLeftPosition);
+                nodeLeft = makeNode("&lt;" + left.p + "," + left.v + "&gt;", new Point(parentLeftPosition, getRectNextTop(depthLeft)), Node.COLOR_LEFT, newLeftPosition);
                 nodeLeft.setParent(parentNode);
             }
         }
@@ -199,7 +199,7 @@ public class SurfaceTreeForRadixHeap extends JPanel {
             parentRightPosition = getRectNextRight(parentRightPosition, heightFromRight(i));
             if (parentNode != null) {
                 depthRight++;
-                nodeRight = makeNode("&lt;" + right.p + "," + right.i + "&gt;", new Point(parentRightPosition, getRectNextTop(depthRight)), Node.COLOR_RIGHT, newRightPosition);
+                nodeRight = makeNode("&lt;" + right.p + "," + right.v + "&gt;", new Point(parentRightPosition, getRectNextTop(depthRight)), Node.COLOR_RIGHT, newRightPosition);
                 nodeRight.setParent(parentNode);
             }
         }

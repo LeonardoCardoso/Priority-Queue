@@ -8,25 +8,25 @@ import heaps.element.Pair;
  * Radix Heap is the process to organize a PQ reducing its medium complexity of
  * heap operation at the maximum. In this case, the PQ is divided in ranked
  * pieces.
- * 
- * Insertion and removal are made according to the ranks, from the smallest to
+ *
+ * Insertion and deletions are made according to the ranks, from the smallest to
  * the largest or vice versa while the priority is being treated
- * 
+ *
  * To create the ranks, first the largest priority must be know and the ranks
  * can be as follows:
- * 
+ *
  * [2^1][2^2][2^3][...][2^k]
- * 
+ *
  * K is the power when 2^k is the first number greater than the largest priority
- * 
- * Then priorities lower than or equals 2^1 will be alocated in the first
+ *
+ * Then priorities lower than or equals 2^1 will be allocated in the first
  * priority queue.
- * 
- * Priorities greater than 2^1 and lower than 2^2 will be alocated in the second
+ *
+ * Priorities greater than 2^1 and lower than 2^2 will be allocated in the second
  * priority queue.
- * 
+ *
  * And so on...
- * 
+ *
  * */
 @SuppressWarnings("unchecked")
 public class RadixHeap {

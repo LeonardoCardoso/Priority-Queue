@@ -1,15 +1,17 @@
 package main;
 
-import java.util.ArrayList;
-
-import util.applications.HeapSort;
-import util.applications.KNumbers;
-import heaps.element.Pair;
 import heaps.BinaryHeap;
 import heaps.BinaryHeapAvlIndexed;
 import heaps.MinMaxHeap;
 import heaps.RadixHeap;
+import heaps.element.Pair;
 import util.PrintHeap;
+import util.applications.HeapSort;
+import util.applications.KNumbers;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class Main {
 
@@ -17,12 +19,12 @@ public class Main {
             new Pair(9, 2), new Pair(21, 7), new Pair(31, 9), new Pair(3, 3)};
 
     public static void main(String[] args) {
-//		callPriorityQueue(SET);
-//		callMinMaxHeap(SET);
-//		callAvlIndex(SET);
-//		callHeapSort(SET);
-//		callKNumbers(SET);
-//		callRadixHeap(SET);
+//        callPriorityQueue(SET);
+//        callAvlIndex(SET);
+//        callMinMaxHeap(SET);
+//        callHeapSort(SET);
+//        callKNumbers(SET);
+//        callRadixHeap(SET);
     }
 
     public static void callPriorityQueue(Pair[] set) {
@@ -111,15 +113,17 @@ public class Main {
         binaryHeapAvlIndexed.map(priorityQueue);
 
         /** Upgrade */
-        binaryHeapAvlIndexed.upgrade(priorityQueue, 50, new Pair(2, 3));
+//        binaryHeapAvlIndexed.upgrade(priorityQueue, 50, new Pair(2, 3));
 
         /** Downgrade */
-        binaryHeapAvlIndexed.dowgrade(priorityQueue, 37, new Pair(52, 3));
+//        binaryHeapAvlIndexed.dowgrade(priorityQueue, 37, new Pair(52, 3));
 
         /** Print priority queue */
         System.out.println("\nFinal priority queue\n");
         print("Binary Heap AVL - Indexed", priorityQueue);
 
+
+        System.out.println("\n\nAVL Tree (priority, value)\n");
         binaryHeapAvlIndexed.getAvlTree().printAll();
     }
 
@@ -128,13 +132,22 @@ public class Main {
      */
     public static void callHeapSort(Pair[] set) {
         System.out.print("HeapSort\n\nBefore: ");
-        print(set);
+        print(set, true);
+        System.out.println("\n");
+        ArrayList<Pair> toPrint = new ArrayList<Pair>(Arrays.asList(set));
+        print("HeapSort\n\nBefore: ", toPrint);
+        System.out.println("\n");
+
 
         HeapSort heapSort = new HeapSort();
         set = heapSort.sort(set);
 
+
         System.out.print("\nAfter: ");
-        print(set);
+        print(set, true);
+        System.out.println("\n");
+        toPrint = new ArrayList<Pair>(Arrays.asList(set));
+        print("HeapSort\n\nAfter: ", toPrint);
     }
 
     /**

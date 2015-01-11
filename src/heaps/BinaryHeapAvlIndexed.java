@@ -173,7 +173,7 @@ public class BinaryHeapAvlIndexed {
 	public void upgrade(ArrayList<Pair> priorityQueue, int delta, Pair x) {
 
 		/** Found the heaps.element, its priority will be changed */
-		TreeNode mapped = getAvlTree().find(x.i);
+		TreeNode mapped = getAvlTree().find(x.v);
 
 		if (mapped != null) {
 
@@ -186,7 +186,7 @@ public class BinaryHeapAvlIndexed {
 
 			/** Update position in the AVL heaps.tree */
 			for (int i = 0; i < priorityQueue.size(); i++)
-				getAvlTree().find(priorityQueue.get(i).i).setValue(i + 1);
+				getAvlTree().find(priorityQueue.get(i).v).setValue(i + 1);
 		} else {
 			System.out.println("\nPair " + x + " not found to upgrade");
 		}
@@ -200,7 +200,7 @@ public class BinaryHeapAvlIndexed {
 	public void dowgrade(ArrayList<Pair> priorityQueue, int delta, Pair x) {
 
 		/** Found the heaps.element, its priority will be changed */
-		TreeNode mapped = getAvlTree().find(x.i);
+		TreeNode mapped = getAvlTree().find(x.v);
 
 		if (mapped != null) {
 			int pos = mapped.getValue() - 1;
@@ -212,7 +212,7 @@ public class BinaryHeapAvlIndexed {
 
 			/** Update position in the AVL heaps.tree */
 			for (int i = 0; i < priorityQueue.size(); i++)
-				getAvlTree().find(priorityQueue.get(i).i).setValue(i + 1);
+				getAvlTree().find(priorityQueue.get(i).v).setValue(i + 1);
 		} else {
 			System.out.println("\nPair " + x + " not found to downgrade");
 		}
@@ -236,7 +236,7 @@ public class BinaryHeapAvlIndexed {
 	/** Map the heaps.element index at the AVL heaps.tree */
 	public void map(ArrayList<Pair> priorityQueue) {
 		for (int i = 0; i < priorityQueue.size(); i++)
-			avlTree.insert(priorityQueue.get(i).i, i + 1);
+			avlTree.insert(priorityQueue.get(i).v, i + 1);
 	}
 
 	/** Simple swap */
