@@ -1,6 +1,8 @@
 Priority-Queue
 ==============
 
+Developed by <a href='https://github.com/LeonardoCardoso' target='_blank'>@LeonardoCardoso</a>. 
+
 Set of many algorithms related to Priority Queues
 
 
