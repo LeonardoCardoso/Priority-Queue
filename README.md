@@ -31,6 +31,9 @@ This project contains:
 
 For more details, visit http://lab.leocardz.com/priority-queues/
 
+## Contact
+Contact me either by Twitter [@leocardz](https://twitter.com/leocardz) or emailing me to [contact@leocardz.com](mailto:contact@leocardz.com).
+
 
 ## License
 
